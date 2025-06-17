@@ -1,0 +1,21 @@
+.gradiente {
+  flex: 0 0 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5%;
+  color: #fff;
+  background: linear-gradient(270deg, #004e92, #002f6c, #001f3f);
+  background-size: 600% 600%;
+  animation: animacaodegrade 15s ease infinite;
+  position: relative;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+
+}
+
+/* animação do degradê do fundo, que se mexe de um lado pro outro  */
+@keyframes animacaodegrade {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}

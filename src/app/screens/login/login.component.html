@@ -1,6 +1,6 @@
 <div class="flex flex-col md:flex-row h-auto md:h-screen w-full max-w-full">
   <!-- Seção com degradê -->
-  <section class="flex flex-col justify-center text-white px-8 py-12 md:w-[60%] bg-gradient-to-r from-[#00b09b] via-[#96c93d] to-[#00b09b] animate-[bgMove_15s_ease_infinite] relative shadow-[0_0_25px_rgba(0,0,0,0.2)]">
+  <section class="flex flex-col justify-center text-white px-8 py-12 md:w-[60%] gradiente relative shadow-[0_0_25px_rgba(0,0,0,0.2)]">
     <h1 class="text-[clamp(3rem,6vw,6rem)] mb-2">Título</h1>
     <p class="text-[clamp(1rem,1.5vw,1.5rem)] mb-[20%]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
     <p class="text-[clamp(1rem,1.5vw,1.5rem)] absolute bottom-[15%]">2025 Desafio Front End</p>
@@ -126,11 +126,3 @@
   <p-toast></p-toast>
 </div>
 
-<!-- Tailwind animation (adicione no Tailwind config se necessário) -->
-<style>
-@keyframes bgMove {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-</style>
