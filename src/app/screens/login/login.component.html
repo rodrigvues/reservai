@@ -1,1 +1,136 @@
-<p>login works!</p>
+<div class="flex flex-col md:flex-row h-auto md:h-screen w-full max-w-full">
+  <!-- Seção com degradê -->
+  <section class="flex flex-col justify-center text-white px-8 py-12 md:w-[60%] bg-gradient-to-r from-[#00b09b] via-[#96c93d] to-[#00b09b] animate-[bgMove_15s_ease_infinite] relative shadow-[0_0_25px_rgba(0,0,0,0.2)]">
+    <h1 class="text-[clamp(3rem,6vw,6rem)] mb-2">Título</h1>
+    <p class="text-[clamp(1rem,1.5vw,1.5rem)] mb-[20%]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+    <p class="text-[clamp(1rem,1.5vw,1.5rem)] absolute bottom-[15%]">2025 Desafio Front End</p>
+  </section>
+
+  <!-- Formulário -->
+  <section class="flex flex-col items-start justify-center p-8 w-full md:w-[40%] bg-white overflow-x-hidden transition-opacity duration-400" [class.fade-out]="isFading">
+    
+    <!-- Parte 1 -->
+    <ng-container *ngIf="parteCadastro === 1">
+      <h2 class="text-[#00C389] text-xl mb-2">Bem-vindo</h2>
+      <p class="text-gray-800 mb-8 text-left w-full">Seja bem-vindo, precisamos de algumas informações:</p>
+
+      <form class="flex flex-col gap-4 w-full" (ngSubmit)="onSubmit()" #cadastroForm="ngForm">
+        <div class="flex flex-wrap gap-4">
+          <p-floatlabel class="flex-1 min-w-[120px]">
+            <input pInputText pTooltip="Insira o seu nome" showDelay="1000" hideDelay="100" id="nome" name="nome" [(ngModel)]="nome" autocomplete="off" required class="w-full h-12 px-2"/>
+            <label for="nome">Nome</label>
+          </p-floatlabel>
+
+          <p-floatlabel class="flex-1 min-w-[120px]"> 
+            <input pInputText id="sobrenome" name="sobrenome" [(ngModel)]="sobrenome" autocomplete="off" pTooltip="Insira o seu sobrenome" tooltipPosition="left" showDelay="1000" hideDelay="100" required class="w-full h-12 px-2"/>
+            <label for="sobrenome">Sobrenome</label>
+          </p-floatlabel>
+        </div>
+
+        <p-dropdown
+          class="w-full"
+          [options]="opcoesGeneros"
+          [(ngModel)]="generoSelecionado"
+          name="genero"
+          pTooltip="Selecione seu gênero" tooltipPosition="left" showDelay="1000" hideDelay="100"
+          placeholder="Qual o seu gênero?"
+          required>
+        </p-dropdown>
+
+        <p-button type="button" label="Avançar no Cadastro" pTooltip="Se não consegue clicar, verifique dados nos campos" showDelay="1000" hideDelay="100" (click)="trocarComFade(2)" [disabled]="isFading || !cadastroForm.form.valid"></p-button>
+      </form>
+    </ng-container>
+
+    <!-- Parte 2 -->
+    <ng-container *ngIf="parteCadastro === 2">
+      <h2 class="text-[#00C389] text-xl mb-2">Mais alguns detalhes...</h2>
+      <p class="text-gray-800 mb-8 text-left w-full">
+        Precisamos também de mais informações sobre seu endereço, preencha seus dados abaixo:<br/>
+        <strong>* Campos Obrigatórios</strong>
+      </p>
+
+      <form class="flex flex-col gap-4 w-full" (ngSubmit)="onSalvar()" #cadastroForm="ngForm">
+        <!-- CEP e UF -->
+        <div class="flex flex-wrap gap-4">
+          <p-floatlabel class="flex-[2_1_0%] min-w-[100px]">
+            <input pInputText id="cep" name="cep" [(ngModel)]="cep" pTooltip="Insira o seu CEP" showDelay="1000" hideDelay="100" (blur)="buscarCep()" autocomplete="off" required class="w-full h-12 px-2"/>
+            <label for="cep">CEP *</label>
+          </p-floatlabel>
+
+          <p-floatlabel class="flex-none w-[100px] min-w-[90px]">
+            <input pInputText id="uf" name="uf" [(ngModel)]="uf" pTooltip="Insira o seu estado" tooltipPosition="left" showDelay="1000" hideDelay="100" autocomplete="uf" required class="w-full h-12 px-2"/>
+            <label for="cep">UF *</label>
+          </p-floatlabel>
+        </div>
+
+        <!-- Cidade e Bairro -->
+        <div class="flex flex-wrap gap-4">
+          <p-floatlabel class="flex-1 min-w-[120px]">
+            <input pInputText id="localidade" name="localidade" [(ngModel)]="localidade" pTooltip="Insira a sua cidade" showDelay="1000" hideDelay="100" autocomplete="off" required class="w-full h-12 px-2"/>
+            <label for="localidade">Cidade *</label>
+          </p-floatlabel>
+
+          <p-floatlabel class="flex-1 min-w-[120px]">
+            <input pInputText id="bairro" name="bairro" [(ngModel)]="bairro" pTooltip="Insira o seu bairro" tooltipPosition="left" showDelay="1000" hideDelay="100" autocomplete="off" required class="w-full h-12 px-2"/>
+            <label for="bairro">Bairro *</label>
+          </p-floatlabel>
+        </div>
+
+        <!-- Rua e Número -->
+        <div class="flex flex-wrap gap-4">
+          <p-floatlabel class="flex-[2_1_0%] min-w-[100px]">
+            <input pInputText id="logradouro" name="logradouro" [(ngModel)]="logradouro" pTooltip="Insira a sua rua" showDelay="1000" hideDelay="100" autocomplete="off" required class="w-full h-12 px-2"/>
+            <label for="logradouro">Rua ( Ex: 'Rua Araraquara' ) *</label>
+          </p-floatlabel>
+
+          <p-iftalabel class="flex-none w-[80px] min-w-[60px]">
+            <input type="number" pInputText id="numero" name="numero" [(ngModel)]="numero" autocomplete="off" required pTooltip="Insira o número da sua casa" tooltipPosition="left" showDelay="1000" hideDelay="100" class="w-full h-12 px-2"/>
+            <label for="numero">Nº *</label>
+          </p-iftalabel>
+        </div>
+
+        <!-- Complemento -->
+        <p-floatlabel class="w-full">
+          <input pInputText id="complemento" name="complemento" [(ngModel)]="complemento" pTooltip="Insira o complemento se existente" showDelay="1000" hideDelay="100" autocomplete="off" class="w-full h-12 px-2"/>
+          <label for="complemento">Complemento ( Opcional )</label>
+        </p-floatlabel>
+
+        <p-button 
+          type="button"
+          label="Salvar"
+          [disabled]="!cadastroForm?.form?.valid"
+          pTooltip="Se não conseguir clicar, verifique dados nos campos"
+          showDelay="1000" hideDelay="100"
+          (click)="onSalvar(cadastroForm)">
+        </p-button>
+      </form>
+    </ng-container>
+  </section>
+
+  <!-- Popup com dados -->
+  <p-dialog header="Verifique seus Dados:" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <div class="mb-4 w-full">
+      <p><strong>Nome:</strong> {{ nome }} {{ sobrenome }}</p>
+      <p><strong>Gênero:</strong> {{ generoSelecionado }}</p>
+      <p><strong>CEP:</strong> {{ cep }}</p>
+      <p><strong>UF:</strong> {{ uf }}</p>
+      <p><strong>Localidade:</strong> {{ localidade }}</p>
+      <p><strong>Bairro:</strong> {{ bairro }}</p>
+      <p><strong>Logradouro:</strong> {{ logradouro }}</p>
+      <p><strong>Número:</strong> {{ numero }}</p>
+      <p><strong>Complemento:</strong> {{ complemento }}</p>
+    </div>
+    <p-button type="button" label="Confirmar" (click)="visible = false"></p-button>
+  </p-dialog>
+
+  <p-toast></p-toast>
+</div>
+
+<!-- Tailwind animation (adicione no Tailwind config se necessário) -->
+<style>
+@keyframes bgMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+</style>
