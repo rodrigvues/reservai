@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, NgForm } from '@angular/forms';
@@ -12,6 +12,8 @@ import { CommonModule } from '@angular/common';
 import { IftaLabel } from 'primeng/iftalabel';
 import { TooltipModule } from 'primeng/tooltip';
 import { Dialog } from 'primeng/dialog';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
 
 
 //organizando imports de componentes do prime ng, botão inputs etc
@@ -22,7 +24,7 @@ import { Dialog } from 'primeng/dialog';
   styleUrls: ['./login.component.css'],
   providers: [MessageService],
   imports: [
-    //RouterOutlet,
+    RouterOutlet,
     FloatLabelModule,
     InputTextModule,
     FormsModule,
@@ -40,6 +42,8 @@ import { Dialog } from 'primeng/dialog';
 export class LoginComponent {
   //variáveis das forms
   //localidade cidade
+
+
   nome  = '';
   sobrenome = '';
   generoSelecionado  = '';
@@ -51,11 +55,15 @@ export class LoginComponent {
   complemento  = '';
   localidade  = '';
 
+  
+  
+
+
   //validar cep pro botão salvar
   cepValido: boolean = false;
 
   //mensagem para o toast de erro de cep
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private userService: UserService, private router: Router, ) {}
 
   // variável bool visible pro pop up 
   visible = false;
@@ -169,6 +177,14 @@ export class LoginComponent {
     return;
     }
        //mostra pop up
-      this.visible = true;
+      //this.visible = true;
+      const user: User = {
+      name: 'Vitor',
+      email: 'vitor@email.com',
+      profilePicture: 'imagem'
+    };
+
+    this.userService.setUSer(user);
+    this.router.navigate(['/home']);
   }
 }
