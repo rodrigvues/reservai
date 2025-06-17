@@ -1,9 +1,8 @@
 <div class="flex flex-col md:flex-row h-auto md:h-screen w-full max-w-full">
   <!-- Seção com degradê -->
-  <section class="flex flex-col justify-center text-white px-8 py-12 md:w-[60%] gradiente relative shadow-[0_0_25px_rgba(0,0,0,0.2)]">
-    <h1 class="text-[clamp(3rem,6vw,6rem)] mb-2">Título</h1>
-    <p class="text-[clamp(1rem,1.5vw,1.5rem)] mb-[20%]">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <p class="text-[clamp(1rem,1.5vw,1.5rem)] absolute bottom-[15%]">2025 Desafio Front End</p>
+  <section class="flex flex-col justify-center text-white px-8 py-12 md:w-[60%] gradiente relative shadow-[0_0_25px_rgba(0,0,0,0.2)]  ">
+    <h1 class="text-[clamp(3rem,6vw,6rem)]  font-semibold">Reservaí</h1>
+    <p class="text-[clamp(1rem,1.5vw,1.5rem)] mb-[20%]">Sua reserva, simplificada.</p>
   </section>
 
   <!-- Formulário -->
@@ -11,7 +10,7 @@
     
     <!-- Parte 1 -->
     <ng-container *ngIf="parteCadastro === 1">
-      <h2 class="text-[#00C389] text-xl mb-2">Bem-vindo</h2>
+      <h2 class="text-[#004e92] text-xl mb-2 font-bold">Bem-vindo</h2>
       <p class="text-gray-800 mb-8 text-left w-full">Seja bem-vindo, precisamos de algumas informações:</p>
 
       <form class="flex flex-col gap-4 w-full" (ngSubmit)="onSubmit()" #cadastroForm="ngForm">
@@ -43,7 +42,7 @@
 
     <!-- Parte 2 -->
     <ng-container *ngIf="parteCadastro === 2">
-      <h2 class="text-[#00C389] text-xl mb-2">Mais alguns detalhes...</h2>
+      <h2 class="text-[#004e92] text-xl mb-2 font-bold">Mais alguns detalhes...</h2>
       <p class="text-gray-800 mb-8 text-left w-full">
         Precisamos também de mais informações sobre seu endereço, preencha seus dados abaixo:<br/>
         <strong>* Campos Obrigatórios</strong>
